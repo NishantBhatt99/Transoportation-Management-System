@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+   <!-- Place your favicon.ico and apple-touch-icon.png in the template root directory -->
+  <link href="favicon.ico" rel="shortcut icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate-css/animate.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+
+<style>
+body {
+    font-size: 16px;
+    background: #f9f9f9;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+h2 {
+    text-align: center;
+    text-decoration: underline;
+}
+form {
+    width: 300px;
+    background: #fff;
+    padding: 15px 40px 40px;
+    border: 1px solid #ccc;
+    margin: 50px auto 0;
+    border-radius: 5px;
+}
+label {
+    display: block;
+    margin-bottom: 5px
+}
+label i {
+    color: #999;
+    font-size: 80%;
+}
+input, select {
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+.row {
+    padding-bottom: 10px;
+}
+.form-inline {
+    border: 1px solid #ccc;
+    padding: 8px 10px 4px;
+    border-radius: 2px;
+}
+.form-inline label, .form-inline input {
+    display: inline-block;
+    width: auto;
+    padding-right: 15px;
+}
+.error {
+    color: red;
+    font-size: 90%;
+}
+input[type="submit"] {
+    font-size: 110%;
+    font-weight: 100;
+    background: #006dcc;
+    border-color: #016BC1;
+    box-shadow: 0 3px 0 #0165b6;
+    color: #fff;
+    margin-top: 10px;
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+    background: #0165b6;
+}
+</style>
+<script>
+
+// Defining a function to display error message
+function printError(elemId, hintMsg) {
+    document.getElementById(elemId).innerHTML = hintMsg;
+}
+
+// Defining a function to validate form
+function validateForm() {
+    // Retrieving the values of form elements
+    var name = document.contactForm.name.value;
+    var email = document.contactForm.email.value;
+    var mobile = document.contactForm.mobile.value;
+    var Branch = document.contactForm.Branch.value;
+    var city = document.contactForm.city.value;
+    var hobbies = [];
+    var checkboxes = document.getElementsByName("hobbies[]");
+    for(var i=0; i < checkboxes.length; i++) {
+        if(checkboxes[i].checked) {
+            // Populate hobbies array with selected values
+            hobbies.push(checkboxes[i].value);
+        }
+    }
+   
+// Defining error variables with a default value
+    var nameErr = emailErr = mobileErr = BranchErr = cityErr = true;
+   
+    // Validate name
+    if(name == "") {
+        printError("nameErr", "Please enter your name");
+    } else {
+        var regex = /^[a-zA-Z\s]+$/;                
+        if(regex.test(name) === false) {
+            printError("nameErr", "Please enter a valid name");
+        } else {
+            printError("nameErr", "");
+            nameErr = false;
+        }
+    }
+   
+    // Validate email address
+    if(email == "") {
+        printError("emailErr", "Please enter your email address");
+    } else {
+        // Regular expression for basic email validation
+        var regex = /^\S+@\S+\.\S+$/;
+        if(regex.test(email) === false) {
+            printError("emailErr", "Please enter a valid email address");
+        } else{
+            printError("emailErr", "");
+            emailErr = false;
+        }
+    }
+   
+    // Validate mobile number
+    if(mobile == "") {
+        printError("mobileErr", "Please enter your mobile number");
+    } else {
+        var regex = /^[1-9]\d{9}$/;
+        if(regex.test(mobile) === false) {
+            printError("mobileErr", "Please enter a valid 10 digit mobile number");
+        } else{
+            printError("mobileErr", "");
+            mobileErr = false;
+        }
+    }
+   
+    // Validate Branch
+    if(Branch == "Select") {
+        printError("BranchErr", "Please select your Branch");
+    } else {
+        printError("BranchErr", "");
+        BranchErr = false;
+    }
+   
+    // Validate gender
+    if(city == "") {
+        printError("cityErr", "Please select your gender");
+    } else {
+        printError("cityErr", "");
+        genderErr = false;
+    }
+   
+    // Prevent the form from being submitted if there are any errors
+    if((nameErr || emailErr || mobileErr || BranchErr || cityErr) == true) {
+       return false;
+    } else {
+        // Creating a string from input data for preview
+        var dataPreview = "You've entered the following details: \n" +
+                          "Full Name: " + name + "\n" +
+                          "Email Address: " + email + "\n" +
+                          "Mobile Number: " + mobile + "\n" +
+                          "Branch: " + Branch + "\n" +
+                          "Gender: " + gender + "\n";
+        if(hobbies.length) {
+            dataPreview += "Hobbies: " + hobbies.join(", ");
+        }
+        // Display input data in a dialog box before submitting the form
+        alert(dataPreview);
+    }
+};
+
+</script>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="validator.js"></script>
+</head>
+
+<header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <a href="index.html"  ><img src="logo1.jpg"></img></a>
+        
+        </div>
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">services</a></li>
+          <li><a href="gallery.html">gallery</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li class="menu-has-children"><a href="">Bus Details</a>
+            <ul>
+              <li><a href="#">Bus Info.</a></li>
+              <li class="menu-has-children"><a href="#">Search Bus</a>
+                <ul>
+                  <li><a href="#">Pick Up route</a></li>
+                  <li><a href="#">Drop route</a></li>
+                  <li><a href="#">View Map</a></li>
+                  <li><a href="#">Route Nap</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Student Info.</a></li>
+              <li><a href="#">Fees Info.</a></li>
+              
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+
+
+<body style="background-image: url(bus4.jpg);">
+<form name="contactForm" onsubmit="return validateForm()" style="background-image: url(bus4.jpg);" method="post">
+    <h1><font color="white" size="5"> <marquee> Application Form</marquee></font></h1>
+    
+    <div class="row">
+        <label><font color="white">Full Name*</font></label>
+        <input type="text" name="name">
+        <div class="error" id="nameErr"></div>
+    </div>
+    <div class="row">
+        <label><font color="white">Email Address*</font></label>
+        <input type="text" name="email">
+        <div class="error" id="emailErr"></div>
+    </div>
+    <div class="row">
+        <label><font color="white">Mobile Number*</font></label>
+        <input type="text" name="mobile" maxlength="10">
+        <div class="error" id="mobileErr"></div>
+    </div>
+    <div class="row">
+        <label><font color="white">Branch*</font></label>
+        <select name="Branch">
+            <option>Select</option>
+            <option>Engeneering</option>
+            <option>BBA</option>
+            <option>MBBS</option>
+            <option>BSC</option>
+        </select>
+        <div class="error" id="BranchErr"></div>
+    </div>
+    <div class="row">
+        <label><font color="white">Gender*</font></label>
+        <div class="form-inline">
+            <label><input type="radio" name="gender" value="male"> <font color="white">Male</font></label>
+            <label><input type="radio" name="gender" value="female"><font color="white"> Female</font></label>
+        </div>
+        <div class="error" id="genderErr"></div>
+    </div>
+    <div class="row">
+        <label><font color="white">Hobbies</font> <i><font color="white">(Optional)</font></i></label>
+        <div class="form-inline">
+            <label><input type="checkbox" name="hobbies[]" value="sports"><font color="white"> Sports</font></label>
+            <label><input type="checkbox" name="hobbies[]" value="movies"> <font color="white">Movies</font></label>
+            <label><input type="checkbox" name="hobbies[]" value="music"> <font color="white">Music</font></label>  
+        </div>
+    </div>        
+    <div class="row">
+        <input type="submit" value="Submit">
+        <p><font color="white"> (*mandatory)</font></p>
+    </div>
+</form>
+<br>
+<br>
+
+<footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="credits">
+            <p> Designed by Nishant & Raj</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/superfish/hoverIntent.js"></script>
+  <script src="lib/superfish/superfish.min.js"></script>
+  <script src="lib/morphext/morphext.min.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/stickyjs/sticky.js"></script>
+  <script src="lib/easing/easing.js"></script>
+
+  <script src="js/custom.js"></script>
+
+  <script src="contactform/contactform.js"></script>
+  </body>
+
+
+</body>
+</html>
